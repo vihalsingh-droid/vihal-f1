@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mainpage</title>
+</head>
+
+<body>
+
+<div style="background-color:black; padding:10px; text-align:center;">
+  
+  <a href="index.html">
+    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
+      Home
+    </button>
+  </a>
+
+  <a href="drivers.html">
+    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
+      Drivers
+    </button>
+  </a>
+
+  <a href="About_The_Creator.html">
+    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
+      About Me
+    </button>
+  </a>
+
+</div>
+
+<button onclick="darkMode()">Dark Mode</button>
+
+<script>
+function darkMode(){
+  document.body.style.backgroundColor = "black";
+  document.body.style.color = "white";
+}
+</script>
+
+
+<button onclick="lightMode()">Light Mode</button>
+
+<script>
+function lightMode(){
+  document.body.style.backgroundColor = "white";
+  document.body.style.color = "black";
+}
+</script>
+	
+
+<h1>What is Formula 1?</h1>
+<p>
+Formula 1 is the highest level of car racing in the world. It features the fastest cars and the best drivers competing in races called Grand Prix.
+</p>
+
+<hr>
+
+<h2 align="center" style="background-color:black; color:white; padding:10px;">
+📰 Latest F1 News
+</h2>
+
+
+<div style="background-color:black; color:white; padding:10px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
+onmouseover="this.style.transform='scale(1.05)'"
+onmouseout="this.style.transform='scale(1)'">
+
+  <h3>Mercedes Domination continues</h3>
+  <p> The Silver Arrows are still on the top of the table as Kimi wins his 2nd Grand Prix this season.</p>
+
+</div>
+
+
+
+<div style="background-color:red; color:white; padding:15px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
+onmouseover="this.style.transform='scale(1.05)'"
+onmouseout="this.style.transform='scale(1)'">
+
+  <h3> Ferrari shows strong pace</h3>
+  <p>Ferrari is improving and competing strongly with the Mercs this season.</p>
+
+</div>
+
+
+
+<div style="background-color:#1e2a78; color:white; padding:15px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
+onmouseover="this.style.transform='scale(1.05)'"
+onmouseout="this.style.transform='scale(1)'">
+
+  <h3>RedBull Comeback?</h3>
+  <p>RedBull is working overtime to return to the top , as Max has said if he doesnt get a Championship Winning car , he will leave RB by 2027.</p>
+
+</div>
+</body>
+</html>
