@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>F1 Reaction Game</title>
+
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+    }
+
+    .lights {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 40px;
+    }
+
+    .light {
+      width: 50px;
+      height: 50px;
+      background: #550000;
+      border-radius: 50%;
+    }
+
+    .on {
+      background: red;
+    }
+
+    #clickArea {
+      margin: 20px auto;
+      width: 200px;
+      height: 100px;
+      line-height: 100px;
+      border: 2px solid white;
+      cursor: pointer;
+    }
+
+    .ready {
+      background: green;
+      color: black;
+    }
+
+    table {
+      margin: auto;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+
+    td, th {
+      border: 1px solid white;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>F1 Reaction Test</h1>
+
+<div class="lights">
+  <div class="light" id="l1"></div>
+  <div class="light" id="l2"></div>
+  <div class="light" id="l3"></div>
+  <div class="light" id="l4"></div>
+  <div class="light" id="l5"></div>
+</div>
+
+<div id="clickArea">Wait...</div>
+
+<h2>Leaderboard</h2>
+<table>
+  <thead>
+    <tr><th>Name</th><th>Time</th></tr>
+  </thead>
+  <tbody id="board"></tbody>
+</table>
+
+<script>
+const URL = "https://script.google.com/macros/s/AKfycbxknBWj7asy-NbT713RcciSW898oXAY9zk62EVUNIjNaCcaDdzpOGJ_JTehvH3C_qUHKA/exec";
+
+let lights = [1,2,3,4,5].map(i => document.getElementById("l"+i));
+let clickArea = document.getElementById("clickArea");
+let board = document.getElementById("board");
+
+let startTime;
+let active = false;
+
+function startGame(){
+  lights.forEach(l => l.classList.remove("on"));
+
+  let delay = 0;
+  lights.forEach((l)=>{
+    setTimeout(()=>{ l.classList.add("on"); }, delay);
+    delay += 500;
+  });
+
+  setTimeout(()=>{
+    clickArea.innerText = "CLICK!";
+    clickArea.classList.add("ready");
+    startTime = performance.now();
+    active = true;
+  }, delay + 300);
+}
+
+clickArea.onclick = async function(){
+  if(!active) return;
+
+  active = false;
+  let time = (performance.now() - startTime)/1000;
+
+  let name = prompt("Enter name:");
+  if(name){
+    await fetch(URL, {
+      method: "POST",
+      body: JSON.stringify({name: name, time: time})
+    });
+  }
+
+  clickArea.innerText = "Restart";
+  clickArea.classList.remove("ready");
+
+  loadData();
+}
+
+clickArea.addEventListener("click", function(){
+  if(!active && clickArea.innerText === "Restart"){
+    startGame();
+  }
+});
+
+async function loadData(){
+  let res = await fetch(URL);
+  let data = await res.json();
+
+  board.innerHTML = "";
+
+  data.slice(1).forEach(row=>{
+    let tr = document.createElement("tr");
+    tr.innerHTML = `<td>${row[0]}</td><td>${parseFloat(row[1]).toFixed(3)}</td>`;
+    board.appendChild(tr);
+  });
+}
+
+setInterval(loadData, 3000);
+startGame();
+loadData();
+</script>
+
+</body>
+</html>
