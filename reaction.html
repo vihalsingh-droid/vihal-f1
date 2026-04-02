@@ -23,10 +23,12 @@
       height: 50px;
       background: #550000;
       border-radius: 50%;
+      transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .on {
+    .light.on {
       background: red;
+      box-shadow: 0 0 20px red;
     }
 
     #clickArea {
@@ -36,11 +38,13 @@
       line-height: 100px;
       border: 2px solid white;
       cursor: pointer;
+      user-select: none;
     }
 
     .ready {
       background: green;
       color: black;
+      font-weight: bold;
     }
 
     table {
@@ -58,43 +62,6 @@
 
 <body>
 
-
-  
-<div style="background-color:black; padding:10px; text-align:center;">
-  
-  <a href="index.html">
-    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
-      Home
-    </button>
-  </a>
-
-  <a href="drivers.html">
-    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
-      Drivers
-    </button>
-  </a>
-
-  <a href="About_The_Creator.html">
-    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
-      About Me
-    </button>
-  </a>
-
- <a href="standings.html">
-    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
-Standings 
-    </button>
-  </a>
-
- <a href="reaction.html">
-    <button style="height:50px; width:120px; font-size:16px; margin:5px;">
-Reaction
-    </button>
-  </a>
-  
-</div>
-
-  
 <h1>F1 Reaction Test</h1>
 
 <div class="lights">
@@ -116,43 +83,67 @@ Reaction
 </table>
 
 <script>
-const URL = "https://script.google.com/macros/s/AKfycbxknBWj7asy-NbT713RcciSW898oXAY9zk62EVUNIjNaCcaDdzpOGJ_JTehvH3C_qUHKA/exec";
+const URL = "https://script.google.com/macros/s/AKfycbwZukjnD7sTmIHXkKVtwIcHvwO516PAfdHa2Uzz3yWBYa2Ac30abXzpqUP54DslZMccRg/exec"; // 🔥 PUT YOUR GOOGLE SCRIPT URL HERE
 
 let lights = [1,2,3,4,5].map(i => document.getElementById("l"+i));
 let clickArea = document.getElementById("clickArea");
 let board = document.getElementById("board");
 
-let startTime;
-let active = false;
+let startTime = 0;
+let gameState = "idle"; // idle, waiting, ready
 
-function startGame(){
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function startGame(){
+  gameState = "waiting";
+  clickArea.innerText = "Wait...";
+  clickArea.classList.remove("ready");
+
+  // reset lights
   lights.forEach(l => l.classList.remove("on"));
 
-  let delay = 0;
-  lights.forEach((l)=>{
-    setTimeout(()=>{ l.classList.add("on"); }, delay);
-    delay += 1000;
-  });
+  // smooth lights ON
+  for(let i = 0; i < lights.length; i++){
+    lights[i].classList.add("on");
+    await sleep(400);
+  }
 
-  setTimeout(()=>{
-    clickArea.innerText = "CLICK!";
-    clickArea.classList.add("ready");
-    startTime = performance.now();
-    active = true;
-  }, delay + 2000);
+  // random delay (real F1 feel)
+  let randomDelay = Math.random() * 2000 + 500;
+  await sleep(randomDelay);
+
+  // LIGHTS OUT
+  lights.forEach(l => l.classList.remove("on"));
+
+  clickArea.innerText = "CLICK!";
+  clickArea.classList.add("ready");
+
+  startTime = performance.now();
+  gameState = "ready";
 }
 
 clickArea.onclick = async function(){
-  if(!active) return;
 
-  active = false;
-  let time = (performance.now() - startTime)/1000;
+  // ❌ false start
+  if(gameState === "waiting"){
+    clickArea.innerText = "❌ False Start!";
+    gameState = "idle";
+    return;
+  }
+
+  if(gameState !== "ready") return;
+
+  gameState = "idle";
+
+  let reactionTime = (performance.now() - startTime)/1000;
 
   let name = prompt("Enter name:");
   if(name){
     await fetch(URL, {
       method: "POST",
-      body: JSON.stringify({name: name, time: time})
+      body: JSON.stringify({name: name, time: reactionTime})
     });
   }
 
@@ -160,28 +151,42 @@ clickArea.onclick = async function(){
   clickArea.classList.remove("ready");
 
   loadData();
-}
+};
 
+// restart
 clickArea.addEventListener("click", function(){
-  if(!active && clickArea.innerText === "Restart"){
+  if(gameState === "idle" && clickArea.innerText === "Restart"){
     startGame();
   }
 });
 
+// load leaderboard
 async function loadData(){
   let res = await fetch(URL);
   let data = await res.json();
 
+  let rows = data.slice(1);
+
+  rows.sort((a,b)=> parseFloat(a[1]) - parseFloat(b[1]));
+
   board.innerHTML = "";
 
-  data.slice(1).forEach(row=>{
+  rows.forEach((row, index)=>{
     let tr = document.createElement("tr");
+
+    if(index === 0){
+      tr.style.background = "gold";
+      tr.style.color = "black";
+    }
+
     tr.innerHTML = `<td>${row[0]}</td><td>${parseFloat(row[1]).toFixed(3)}</td>`;
     board.appendChild(tr);
   });
 }
 
+// auto refresh leaderboard
 setInterval(loadData, 3000);
+
 startGame();
 loadData();
 </script>
