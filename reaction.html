@@ -131,7 +131,7 @@ function startGame(){
   let delay = 0;
   lights.forEach((l)=>{
     setTimeout(()=>{ l.classList.add("on"); }, delay);
-    delay += 500;
+    delay += 1000;
   });
 
   setTimeout(()=>{
@@ -139,7 +139,7 @@ function startGame(){
     clickArea.classList.add("ready");
     startTime = performance.now();
     active = true;
-  }, delay + 300);
+  }, delay + 2000);
 }
 
 clickArea.onclick = async function(){
