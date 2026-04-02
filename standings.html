@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F1 2026 Standings</title>
 <style>
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
+  
   body {
     font-family: 'Arial', sans-serif;
     background-color: #121212;
@@ -106,6 +118,9 @@ Standings
 
 </div>
 
+<button onclick="setLightMode()">Light Mode</button>
+<button onclick="setDarkMode()">Dark Mode</button>
+  
 
 <h1>F1 2026 Standings</h1>
 
@@ -179,5 +194,31 @@ Standings
   </tbody>
 </table>
 
+<script>
+// Apply saved theme immediately when page loads
+(function () {
+  let savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.add("light");
+  }
+})();
+
+// Functions for buttons
+function setDarkMode() {
+  document.body.classList.remove("light");
+  document.body.classList.add("dark");
+  localStorage.setItem("theme", "dark");
+}
+
+function setLightMode() {
+  document.body.classList.remove("dark");
+  document.body.classList.add("light");
+  localStorage.setItem("theme", "light");
+}
+</script>
+  
 </body>
 </html>
