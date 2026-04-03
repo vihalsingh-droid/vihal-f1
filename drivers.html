@@ -46,6 +46,7 @@ body.dark {
   color: white;
   text-decoration: none;
   transition: 0.2s;
+  font-size: 16px;
 }
 
 .sidebar a:hover {
@@ -61,44 +62,38 @@ body.dark {
 /* MAIN */
 .main {
   margin-left: 220px;
-  padding: 30px;
+  padding: 20px;
 }
 
 /* TITLE */
 h2 {
   text-align: center;
   font-size: 42px;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-shadow: 0 0 10px red;
 }
 
-/* CONTAINER */
-.flex-row {
+/* CARD BASE (same look, slightly bigger) */
+.card {
+  padding:15px;
+  margin:10px;
+  border-radius:10px;
+  width:240px;
+  text-align:center;
+  box-shadow:0px 0px 10px gray;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.row {
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
   gap:20px;
 }
-
-/* CARD BASE */
-.card {
-  padding:18px;
-  margin:10px;
-  border-radius:12px;
-  width:240px;
-  text-align:center;
-  box-shadow:0px 0px 12px gray;
-  transition:0.3s;
-}
-
-.card:hover {
-  transform:scale(1.05);
-}
-
-.card img {
-  width:160px;
-}
-
 </style>
 </head>
 
@@ -123,60 +118,180 @@ h2 {
 <h2>🏎️ F1 Drivers</h2>
 
 <!-- RED BULL -->
-<div class="flex-row">
+<div class="row">
   <div class="card" style="background:#1e2a78;color:white;">
     <h3>Max Verstappen</h3>
-    <img src="images/max.png">
+    <img src="images/max.png" width="150">
     <p>Team: Red Bull Racing</p>
     <p>World Champion: Yes</p>
   </div>
 
   <div class="card" style="background:#1e2a78;color:white;">
     <h3>Isack Hadjar</h3>
-    <img src="images/isa.png">
+    <img src="images/isa.png" width="150">
     <p>Team: Red Bull Racing</p>
     <p>World Champion: No</p>
   </div>
 </div>
 
 <!-- FERRARI -->
-<div class="flex-row">
+<div class="row">
   <div class="card" style="background:#dc0000;color:white;">
     <h3>Lewis Hamilton</h3>
-    <img src="images/lew.png">
+    <img src="images/lew.png" width="150">
     <p>Team: Scuderia Ferrari</p>
     <p>World Champion: Yes</p>
   </div>
 
   <div class="card" style="background:#dc0000;color:white;">
     <h3>Charles Leclerc</h3>
-    <img src="images/cha.png">
+    <img src="images/cha.png" width="150">
     <p>Team: Scuderia Ferrari</p>
     <p>World Champion: No</p>
   </div>
 </div>
 
 <!-- MERCEDES -->
-<div class="flex-row">
+<div class="row">
   <div class="card" style="background:#00d2be;color:white;">
     <h3>George Russell</h3>
-    <img src="images/geo.png">
+    <img src="images/geo.png" width="150">
     <p>Team: Mercedes</p>
     <p>World Champion: No</p>
   </div>
 
   <div class="card" style="background:#00d2be;color:white;">
     <h3>Kimi Antonelli</h3>
-    <img src="images/kim.png">
+    <img src="images/kim.png" width="150">
     <p>Team: Mercedes</p>
     <p>World Champion: No</p>
   </div>
 </div>
 
-<!-- KEEP ALL YOUR OTHER TEAMS EXACT SAME BELOW (UNCHANGED STRUCTURE) -->
+<!-- McLAREN -->
+<div class="row">
+  <div class="card" style="background:#ff8700;color:black;">
+    <h3>Lando Norris</h3>
+    <img src="images/lan.png" width="150">
+    <p>Team: McLaren</p>
+    <p>World Champion: Yes</p>
+  </div>
+
+  <div class="card" style="background:#ff8700;color:black;">
+    <h3>Oscar Piastri</h3>
+    <img src="images/osc.png" width="150">
+    <p>Team: McLaren</p>
+    <p>World Champion: No</p>
+  </div>
+</div>
+
+<!-- WILLIAMS -->
+<div class="row">
+  <div class="card" style="background:#005aff;color:white;">
+    <h3>Alex Albon</h3>
+    <img src="images/ale.png" width="150">
+    <p>Team: Williams</p>
+  </div>
+
+  <div class="card" style="background:#005aff;color:white;">
+    <h3>Carlos Sainz</h3>
+    <img src="images/car.png" width="150">
+    <p>Team: Williams</p>
+  </div>
+</div>
+
+<!-- RACING BULLS -->
+<div class="row">
+  <div class="card" style="background:white;color:black;">
+    <h3>Liam Lawson</h3>
+    <img src="images/lia.png" width="150">
+    <p>Team: Racing Bulls</p>
+  </div>
+
+  <div class="card" style="background:white;color:black;">
+    <h3>Arvid Lindblad</h3>
+    <img src="images/arv.png" width="150">
+    <p>Team: Racing Bulls</p>
+  </div>
+</div>
+
+<!-- ASTON MARTIN -->
+<div class="row">
+  <div class="card" style="background:#006f62;color:white;">
+    <h3>Fernando Alonso</h3>
+    <img src="images/fer.png" width="150">
+    <p>Team: Aston Martin</p>
+  </div>
+
+  <div class="card" style="background:#006f62;color:white;">
+    <h3>Lance Stroll</h3>
+    <img src="images/str.png" width="150">
+    <p>Team: Aston Martin</p>
+  </div>
+</div>
+
+<!-- HAAS -->
+<div class="row">
+  <div class="card" style="background:#1c1c1c;color:white;">
+    <h3>Esteban Ocon</h3>
+    <img src="images/est.png" width="150">
+    <p>Team: Haas</p>
+  </div>
+
+  <div class="card" style="background:#1c1c1c;color:white;">
+    <h3>Oliver Bearman</h3>
+    <img src="images/oli.png" width="150">
+    <p>Team: Haas</p>
+  </div>
+</div>
+
+<!-- ALPINE -->
+<div class="row">
+  <div class="card" style="background:#0090ff;color:white;">
+    <h3>Pierre Gasly</h3>
+    <img src="images/pie.png" width="150">
+    <p>Team: Alpine</p>
+  </div>
+
+  <div class="card" style="background:#0090ff;color:white;">
+    <h3>Franco Colapinto</h3>
+    <img src="images/fra.png" width="150">
+    <p>Team: Alpine</p>
+  </div>
+</div>
+
+<!-- AUDI -->
+<div class="row">
+  <div class="card" style="background:#bb0a30;color:white;">
+    <h3>Nico Hülkenberg</h3>
+    <img src="images/nic.png" width="150">
+    <p>Team: Audi</p>
+  </div>
+
+  <div class="card" style="background:#bb0a30;color:white;">
+    <h3>Gabriel Bortoleto</h3>
+    <img src="images/gab.png" width="150">
+    <p>Team: Audi</p>
+  </div>
+</div>
+
+<!-- CADILLAC -->
+<div class="row">
+  <div class="card" style="background:#b5b5b5;color:black;">
+    <h3>Sergio Pérez</h3>
+    <img src="images/ser.png" width="150">
+    <p>Team: Cadillac</p>
+  </div>
+
+  <div class="card" style="background:#b5b5b5;color:black;">
+    <h3>Valtteri Bottas</h3>
+    <img src="images/val.png" width="150">
+    <p>Team: Cadillac</p>
+  </div>
+</div>
 
 <script>
-// SAME SCRIPT (UNCHANGED)
+// SAME SCRIPT
 (function () {
   let savedTheme = localStorage.getItem("theme");
 
