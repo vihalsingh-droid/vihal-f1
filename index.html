@@ -2,11 +2,17 @@
 <html>
 <head>
 <title>Mainpage</title>
+
+<!-- ORBITRON FONT (same everywhere) -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
 <style>
-	body {
+body {
   font-family: 'Orbitron', sans-serif;
 }
-	body.light {
+
+/* THEMES */
+body.light {
   background-color: white;
   color: black;
 }
@@ -16,6 +22,7 @@ body.dark {
   color: white;
 }
 
+/* INTRO */
 .intro {
   text-align: center;
   padding: 60px 20px;
@@ -23,13 +30,15 @@ body.dark {
   border-radius: 15px;
   background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
   box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  transition: 0.3s;
 }
 
 .intro h1 {
   font-size: 60px;
   margin-bottom: 20px;
-  color: #ff0000; /* F1 red */
-  letter-spacing: 2px;
+  color: #ff0000;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px red; /* 🔥 added glow */
 }
 
 .intro p {
@@ -40,14 +49,13 @@ body.dark {
   color: #ddd;
 }
 
-/* Hover effect for cool feel */
 .intro:hover {
   transform: scale(1.02);
-  transition: 0.3s;
 }
 
+/* LOGO */
 .f1-logo {
-  width: 250px;   /* adjust size */
+  width: 250px;
   margin-bottom: 20px;
   transition: 0.3s;
 }
@@ -56,8 +64,7 @@ body.dark {
   transform: scale(1.1);
 }
 
-
-	/* SIDEBAR */
+/* SIDEBAR */
 .sidebar {
   position: fixed;
   left: 0;
@@ -73,6 +80,8 @@ body.dark {
   text-align: center;
   color: #ff0000;
   margin-bottom: 30px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
 /* NAV LINKS */
@@ -85,20 +94,37 @@ body.dark {
   font-size: 16px;
 }
 
-/* HOVER EFFECT */
 .sidebar a:hover {
   background: #ff0000;
-  color: white;
   padding-left: 30px;
 }
 
-/* MAIN CONTENT SHIFT */
+/* ✅ ACTIVE PAGE */
+.sidebar a.active {
+  background: #ff0000;
+  font-weight: bold;
+}
+
+/* MAIN */
 .main {
   margin-left: 220px;
   padding: 20px;
 }
+
+/* 🔥 NEWS CARDS (JUST CLEANED, SAME LOOK) */
+.news-card {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px gray;
+}
+
+.news-card:hover {
+  transform: scale(1.05);
+}
+
 </style>
-	
 </head>
 
 <body>
@@ -106,20 +132,18 @@ body.dark {
 <div class="sidebar">
   <h2>F1 Hub</h2>
 
-  <a href="index.html">Home</a>
+  <a href="index.html" class="active">Home</a>
   <a href="race-page.html">Race Calendar</a>
   <a href="drivers.html">Drivers</a>
   <a href="standings.html">Standings</a>
   <a href="reaction.html"> Reaction Game</a>
   <a href="About_The_Creator.html">About me</a>
-
 </div>
+
 <div class="main">
-  <!-- your existing content here -->
 
 <button onclick="setLightMode()">Light Mode</button>
 <button onclick="setDarkMode()">Dark Mode</button>
-	
 
 <div class="intro">
 <img src="images/F1-logo.png" class="f1-logo">
@@ -137,40 +161,24 @@ body.dark {
 📰 Latest F1 News
 </h2>
 
-
-<div style="background-color:black; color:white; padding:10px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
-onmouseover="this.style.transform='scale(1.05)'"
-onmouseout="this.style.transform='scale(1)'">
-
+<!-- SAME CONTENT, JUST CLASS ADDED -->
+<div class="news-card" style="background-color:black; color:white;">
   <h3>Mercedes Domination continues</h3>
-  <p> The Silver Arrows are still on the top of the table as Kimi wins his 2nd Grand Prix this season.</p>
-
+  <p>The Silver Arrows are still on the top of the table as Kimi wins his 2nd Grand Prix this season.</p>
 </div>
 
-
-
-<div style="background-color:red; color:white; padding:15px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
-onmouseover="this.style.transform='scale(1.05)'"
-onmouseout="this.style.transform='scale(1)'">
-
+<div class="news-card" style="background-color:red; color:white;">
   <h3> Ferrari shows strong pace</h3>
   <p>Ferrari is improving and competing strongly with the Mercs this season.</p>
-
 </div>
 
-
-
-<div style="background-color:#1e2a78; color:white; padding:15px; margin:10px; border-radius:10px; transition:0.3s; box-shadow:0px 0px 10px gray;"
-onmouseover="this.style.transform='scale(1.05)'"
-onmouseout="this.style.transform='scale(1)'">
-
+<div class="news-card" style="background-color:#1e2a78; color:white;">
   <h3>RedBull Comeback?</h3>
   <p>RedBull is working overtime to return to the top , as Max has said if he doesnt get a Championship Winning car , he will leave RB by 2027.</p>
-
 </div>
 
 <script>
-// Apply saved theme immediately when page loads
+// SAME SCRIPT (UNCHANGED)
 (function () {
   let savedTheme = localStorage.getItem("theme");
 
@@ -181,7 +189,6 @@ onmouseout="this.style.transform='scale(1)'">
   }
 })();
 
-// Functions for buttons
 function setDarkMode() {
   document.body.classList.remove("light");
   document.body.classList.add("dark");
@@ -194,6 +201,7 @@ function setLightMode() {
   localStorage.setItem("theme", "light");
 }
 </script>
+
 </div>
 </body>
 </html>
